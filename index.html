@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="http://zeptojs.com/zepto.js"></script> -->
+    <script type="text/javascript" src="pinch.js"></script>
+	<script type="text/javascript" src="hammer.js"></script>
+</head>
+<body style="">
+
+<div></div>
+
+<script type="text/javascript">
+	
+$(document).on("pinchstart pinchmove pinchend", function(e) {
+	var str = []
+    str.push("left: " + e.offsetLeft + "px") //left is 0px at pinchstart
+    str.push("top: " + e.offsetTop + "px")   //top is 0px at pinchstart
+    str.push("scale: " + e.scale)            //scale is 1 at pinchstart
+    str.push("angle: " + e.angle + "deg")    //angle is 0deg at pinchstart
+    $('div').html(str.join('<br>'))
+})
+
+</script>
+
+</body>
+</html>
+
+
