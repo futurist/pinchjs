@@ -9,12 +9,14 @@ new function() {
 	//var prefix = (function() {for (var p in prefixes) if (document.body.style[p] !== undefined) return prefixes[p]})() || ""
 	var prefix='';
 	var trigger = function(el, e, type, scale, angle, x, y) {
-		var event = $.Event(type, {prefix: prefix, scale: scale, angle: angle, offsetLeft: x, offsetTop: y})
+		var event = $.Event(type, {prefix: prefix, e:e, scale: scale, angle: angle, offsetLeft: x, offsetTop: y})
 		$(el).trigger(event)
 		if (event.isDefaultPrevented()) e.preventDefault()
 	}
 	var delegate = function(type, groups, e) {
-		var touches = Array.prototype.slice.call(e.originalEvent.touches)
+		// var a=[];for(let k in e){a.push(k)};  $('div').html(a.join('<br>'))
+		// return
+		var touches = Array.prototype.slice.call(e.touches)
 		var t0, t1
 		var filter = function(g) {return g.target == t0.target}
 		for (var i = 0; touches.length > 0; i++) {
@@ -45,7 +47,7 @@ new function() {
 		"touchmove.pinch": function(e) {delegate("pinchmove", [curr], e)},
 		"touchend.pinch": function(e) {
 			delegate("pinchend", [curr], e)
-			if (e.originalEvent.touches.length == 0) start.length = curr.length = states.length = 0
+			if (e.touches.length == 0) start.length = curr.length = states.length = 0
 		},
 		"pinchstart.pinch": function(e) {
 			var matrix = getComputedStyle(e.target, null).getPropertyValue(prefix + "transform")
